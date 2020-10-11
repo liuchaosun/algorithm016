@@ -21,17 +21,33 @@
  */
 var serialize = function (root) {
   // DFS 深度优先 先序遍历
-  const rec = function (node, str) {
+  // const rec = function (node, str) {
+  //   if (!node) {
+  //     str += '##,';
+  //   } else {
+  //     str += node.val + ',';
+  //     str = rec(node.left, str);
+  //     str = rec(node.right, str);
+  //   }
+  //   return str;
+  // };
+  // return rec(root, '');
+
+  // BFS
+  let queue = [root];
+  let str = '';
+  while (queue.length) {
+    let node = queue.shift();
     if (!node) {
       str += '##,';
     } else {
       str += node.val + ',';
-      str = rec(node.left, str);
-      str = rec(node.right, str);
+      queue.push(node.left);
+      queue.push(node.right);
     }
-    return str;
-  };
-  return rec(root, '');
+  }
+
+  return str;
 };
 
 /**
